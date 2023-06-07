@@ -1,0 +1,14 @@
+parameters:
+  - name: sshKnownHosts
+    type: string
+  - name: sshPublicKey
+    type: string
+  - name: sshSecureFile
+    type: string
+
+steps:
+- task: InstallSSHKey@0
+  inputs:
+    knownHostsEntry:  ${{ parameters.sshKnownHosts}}
+    sshPublicKey:     ${{ parameters.sshPublicKey}}
+    sshKeySecureFile: ${{ parameters.sshSecureFile}}

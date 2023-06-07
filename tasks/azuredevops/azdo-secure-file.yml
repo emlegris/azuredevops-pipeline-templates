@@ -1,0 +1,24 @@
+parameters:
+  - name: secureFiles
+    type: object
+  - name: targetFolder
+    type: string
+  - name: contents
+    type: string
+    default: '**/*'
+
+steps:
+- ${{ each file in parameters.secureFiles }}:
+  - task: DownloadSecureFile@1
+    displayName: "Download Secure File"
+    inputs:
+      secureFile: ${{ file }}
+
+- task: CopyFiles@2
+  displayName: "Import Secure File"
+  inputs:
+    sourceFolder: "$(Agent.TempDirectory)"
+    targetFolder: ${{ parameters.targetFolder }}
+    contents: |
+      ${{ parameters.contents }}
+    

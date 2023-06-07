@@ -1,0 +1,13 @@
+parameters:
+    - name: apiToken
+      type: string
+    - name: modules
+      type: object
+
+steps:
+- ${{ each module in parameters.modules }}:
+  - task: BoostSecurityScan@1
+    inputs:
+      apiToken: '${{ parameters.apiToken }}'
+      registryModule: ${{ module.name }}
+    env: ${{ module.env }}

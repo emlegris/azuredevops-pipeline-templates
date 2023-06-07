@@ -1,0 +1,13 @@
+parameters:
+  - name: environment
+    type: string
+  - name: workingDirectory
+    type: string
+    default: 'System.DefaultWorkingDirectory'
+
+steps:
+- bash: |
+    terraform workspace select ${{ parameters.environment }} || terraform workspace new ${{ parameters.environment }}
+  displayName: 'Terraform Workspace'
+  continueOnError: false
+  workingDirectory: ${{ parameters.workingDirectory }}

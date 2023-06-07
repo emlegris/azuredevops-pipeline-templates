@@ -1,0 +1,28 @@
+parameters:
+  - name: armSubscriptionId
+    type: string
+  - name: armClientId
+    type: string
+  - name: armClientSecret
+    type: string
+  - name: armTenantId
+    type: string
+  - name: workingDirectory
+    type: string
+    default: 'System.DefaultWorkingDirectory'
+  - name: terraformApplyCliOptions
+    type: string
+    default: "-auto-approve"
+
+steps:
+- bash: |
+    terraform version
+    terraform apply ${{ parameters.terraformApplyCliOptions }}
+  displayName: 'Terraform Apply'
+  continueOnError: false
+  workingDirectory: ${{ parameters.workingDirectory }}
+  env:
+    ARM_SUBSCRIPTION_ID: ${{ parameters.armSubscriptionId }}
+    ARM_CLIENT_ID:       ${{ parameters.armClientId }}
+    ARM_CLIENT_SECRET:   ${{ parameters.armClientSecret }}
+    ARM_TENANT_ID:       ${{ parameters.armTenantId }}
