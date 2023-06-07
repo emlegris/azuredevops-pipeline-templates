@@ -11,8 +11,6 @@ parameters:
   - name: workingDirectory
     type: string
     default: 'System.DefaultWorkingDirectory'
-  - name: authentication
-    type: object
 
 steps:
 - bash: |
