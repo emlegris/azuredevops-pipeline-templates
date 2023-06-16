@@ -1,0 +1,27 @@
+parameters:
+  - name: timeoutInMinutes
+    type: number
+    default: 1440
+  - name: notifyUsers
+    type: string
+  - name: instructions
+    type: string
+    default: 'Please validate the build configuration and resume'
+  - name: onTimout
+    type: string
+    default: 'reject'
+
+jobs:
+  - job: manualValidation
+    displayName: Manual Validation
+    pool: server
+    timeoutInMinutes: ${{ parameters.timeoutInMinutes }}
+
+    steps:
+      - task: ManualValidation@0
+        timeoutInMinutes: ${{ parameters.timeoutInMinutes }}
+        inputs:
+          notifyUsers: |
+              ${{ parameters.notifyUsers }}
+          instructions: ${{ parameters.instructions }}
+          onTimeout: ${{ parameters.onTimout }}
